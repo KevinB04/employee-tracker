@@ -9,7 +9,7 @@ port: 3000,
 user: "root",
 
 password: "RememberThis!4",
-database: "great_bay",
+database: "employeeTracker_db",
 });
 
 connection.connect((err) => {
@@ -24,52 +24,59 @@ connection.connect((err) => {
             type: "input",
             message: "What would you like to do?",
             name: "action",
-            choice: ["View All Employees", ]
+            choice: [
+                "View All Employees", 
+                "View All Employees By Department", 
+                "View All Employees By Manager", 
+                "Add Employee", 
+                "Remove Employee", 
+                "Update Employee Role", 
+                "Update Employee Manager"],
         },
         {
             type: "input",
             message: "Which?",
             name: "bid"
         },
-    ]).then(({name, bid}) => {
-        connection.query(
-            `INSERT INTO items (name, bid)
-            VALUES (?, ?);`,
-            [name, bid],
-            (err, data) => {
-                if (err) throw err;
-                console.log(data);
-                init();
-            }
-        );
-    });
-}
+//     ]).then(({name, bid}) => {
+//         connection.query(
+//             `INSERT INTO items (name, bid)
+//             VALUES (?, ?);`,
+//             [name, bid],
+//             (err, data) => {
+//                 if (err) throw err;
+//                 console.log(data);
+//                 init();
+//             }
+//         );
+//     });
+// }
 
 
     
-      connection.query(
-          `INSERT INTO items (name, bid)
-          VALUES ("Football", 10);`,
-          (err, data) => {
-              if (err) throw err;
-              console.log(data);
-          }
-      );
-  }
+//       connection.query(
+//           `INSERT INTO items (name, bid)
+//           VALUES ("Football", 10);`,
+//           (err, data) => {
+//               if (err) throw err;
+//               console.log(data);
+//           }
+//       );
+//   }
 
-  function init() {
-    inquirer
-      .prompt([
-        {
-            type: "list",
-            message: "What would you like to do?",
-            name: "action",
-            choices: ["ADD AN ITEM FOR AUCTION", "EXIT"],
-        },
-      ]).then(({ action }) => {
-          if (action === "Post an item") {
-              readOptionlist();
-          } else if (action === "Bid on an item") {
-              readOptionlist();
-          }
-      });
+//   function init() {
+//     inquirer
+//       .prompt([
+//         {
+//             type: "list",
+//             message: "What would you like to do?",
+//             name: "action",
+//             choices: ["ADD AN ITEM FOR AUCTION", "EXIT"],
+//         },
+//       ]).then(({ action }) => {
+//           if (action === "Post an item") {
+//               readOptionlist();
+//           } else if (action === "Bid on an item") {
+//               readOptionlist();
+//           }
+//       });
