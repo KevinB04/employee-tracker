@@ -4,7 +4,7 @@ const inquirer = require("inquirer");
 const connection = mysql.createConnection({
     host: "localhost",
 
-port: 3000,
+port: 3306,
 
 user: "root",
 
@@ -12,19 +12,20 @@ password: "RememberThis!4",
 database: "employeeTracker_db",
 });
 
-connection.connect((err) => {
+connection.connect(function (err) {
     if (err) throw err;
     console.log(`connected as id: ${connection.threadId}`);
-    init();
+    // init();
+    postItemForAuction();
   });
 
   function postItemForAuction() {
       inquirer.prompt([
         {
-            type: "input",
+            type: "list",
             message: "What would you like to do?",
             name: "action",
-            choice: [
+            choices: [
                 "View All Employees", 
                 "View All Employees By Department", 
                 "View All Employees By Manager", 
@@ -32,14 +33,21 @@ connection.connect((err) => {
                 "Remove Employee", 
                 "Update Employee Role", 
                 "Update Employee Manager"],
-        },
-        {
-            type: "input",
-            message: "Which?",
-            name: "bid"
-        },
-//     ]).then(({name, bid}) => {
-//         connection.query(
+        }
+    ]).then(({action, bid}) => {
+        if(action === "View All Employees") {
+            viewAllEmployees();
+        }
+        console.table(action); 
+
+        });
+    };
+
+    function viewAllEmployees(){
+        
+    }
+        connection.query(
+
 //             `INSERT INTO items (name, bid)
 //             VALUES (?, ?);`,
 //             [name, bid],
@@ -64,16 +72,16 @@ connection.connect((err) => {
 //       );
 //   }
 
-//   function init() {
-//     inquirer
-//       .prompt([
-//         {
-//             type: "list",
-//             message: "What would you like to do?",
-//             name: "action",
-//             choices: ["ADD AN ITEM FOR AUCTION", "EXIT"],
-//         },
-//       ]).then(({ action }) => {
+  function init() {
+    inquirer
+      .prompt([
+        {
+            type: "list",
+            message: "What would you like to do?",
+            name: "action",
+            choices: [
+        },
+      ]).then(({ action }) => {
 //           if (action === "Post an item") {
 //               readOptionlist();
 //           } else if (action === "Bid on an item") {
