@@ -9,6 +9,9 @@
    - [Credits](#credits)
    - [License](#license)
 
+ ## Description
+ This project contains multiple tables that will only a business owner to view and manage different aspects of their company. For example, as the user you can add departments, roles, and employees.
+
   ## Installation
   You are welcome to clone this repository. Run `git clone git@github.com:KevinB04/note-taker.git`
 
