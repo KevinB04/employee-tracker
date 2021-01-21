@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const table = require("console.table");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -19,7 +20,7 @@ connection.connect(function (err) {
   postItemForAuction();
 });
 
-function postItemForAuction() {
+function init() {
   inquirer.prompt([
     {
       type: "list",
@@ -34,9 +35,41 @@ function postItemForAuction() {
         "Update Employee Role",
         "Update Employee Manager"],
     }
-  ]).then(({ action, bid }) => {
-    if (action === "View All Employees") {
-      viewAllEmployees();
+    .then(({ userChoice }) => {
+      switch (userChoice) {
+        case "View All Employees":
+          viewAllEmployees();
+          break;
+
+        case "View All Employees By Department":
+          viewAllDepartments();
+          break;
+
+        case "View All Employees By Manager":
+          viewByManager();
+          break;
+
+        case "Add Employee":
+          addEmployee();
+          break;
+
+        case "Remove Employee":
+          removeEmployee();
+          break;
+
+        case "Update Employee Role":
+          updateEmployeeRole();
+          break;
+          
+        case "Update Employee Manager":
+          updateEmployeeManager();
+          break;
+          
+        default:
+          exit();
+      }
+    });
+}
     }
     console.table(action);
 
@@ -60,41 +93,7 @@ connection.query(
   //     });
   // }
 
-  function init() {
-    inquirer
-      .prompt([
-        {
-          type: "list",
-          message: "What would you like to search for?",
-          choices: [
-            "Songs by Artist",
-            "Songs by Title",
-            "Artists appearing more than once",
-            "Find songs by year",
-            "Exit",
-          ],
-          name: "userChoice",
-        },
-      ])
-      .then(({ userChoice }) => {
-        switch (userChoice) {
-          case "Songs by Artist":
-            findSongByArtist();
-            break;
-          case "Songs by Title":
-            findSongByTitle();
-            break;
-          case "Artists appearing more than once":
-            findArtistsMoreThanOnce();
-            break;
-          case "Find songs by year":
-            findSongsByYearRange();
-            break;
-          default:
-            exit();
-        }
-      });
-  }
+  
 
 //       connection.query(
 //           `INSERT INTO items (name, bid)
