@@ -28,7 +28,7 @@ class DB {
         return this.connection.query("SELECT * FROM role")
     }
 
-    addRole(title, salary, department_id){
+    addEmployeeRole(title, salary, department_id){
         return this.connection.query("INSERT INTO role SET ?", {
             title: title,
             salary: salary,

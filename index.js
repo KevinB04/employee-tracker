@@ -18,7 +18,7 @@ function init() {
         "Add Department",
         "Add Employee",
         "Remove Employee",
-        "Update Employee Role",
+        "Add Employee Role",
         "Update Employee Manager"],
     }])
     .then(function(userChoice) {
@@ -47,8 +47,8 @@ function init() {
           removeEmployee();
           break;
 
-        case "Update Employee Role":
-          updateEmployeeRole();
+        case "Add Employee Role":
+          addEmployeeRole();
           break;
           
         case "Update Employee Manager":
@@ -75,7 +75,7 @@ function init() {
     });
   }
 
-  async function addRole(){
+  async function findAllRoles(){
     const departments = await DB.findAllDepartments();
 
     const departmentChoices = departments.map(({ id, name }) => ({
@@ -135,7 +135,7 @@ function init() {
     });
   }
 
-  function addRole() {
+  function addEmployeeRole() {
     inquirer.prompt([
       {
         type: "input",
@@ -150,6 +150,5 @@ function init() {
     })
   }
 
-  
 
 init();
