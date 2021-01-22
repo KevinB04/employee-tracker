@@ -7,6 +7,7 @@
    - [Installation](#installation)
    - [Usage](#usage)
    - [Credits](#credits)
+   - [Contributions](#Contributions)
    - [License](#license)
 
  ## Description
@@ -19,6 +20,9 @@
   * [Shields.io](https://shields.io/)
   * [Node.js](https://nodejs.org/en/)
   * [MySQL](https://www.mysql.com/)
+
+  ## Contributions
+  Not accepting contributions at this time.
 
   ## License
   [MIT](https://choosealicense.com/licenses/mit/)
