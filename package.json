@@ -4,9 +4,12 @@
   "description": "![GitHub Logo](https://img.shields.io/badge/license-MIT-green)",
   "main": "index.js",
   "dependencies": {
+    "console-table-printer": "^2.7.5",
     "console.table": "^0.10.0",
+    "dotenv": "^8.2.0",
     "inquirer": "^7.3.3",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "util": "^0.12.3"
   },
   "devDependencies": {},
   "scripts": {

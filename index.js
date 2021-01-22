@@ -1,24 +1,8 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-const table = require("console.table");
-
-const connection = mysql.createConnection({
-  host: "localhost",
-
-  port: 3306,
-
-  user: "root",
-
-  password: "RememberThis!4",
-  database: "employeeTracker_db",
-});
-
-connection.connect(function (err) {
-  if (err) throw err;
-  console.log(`connected as id: ${connection.threadId}`);
-  // init();
-  postItemForAuction();
-});
+const { printTable } = require("console-table-printer")
+const DB = require("./db/db");
+const { findAllDepartments } = require("./db/db");
 
 function init() {
   inquirer.prompt([
@@ -30,20 +14,26 @@ function init() {
         "View All Employees",
         "View All Employees By Department",
         "View All Employees By Manager",
+        "View All Departments",
+        "Add Department",
         "Add Employee",
         "Remove Employee",
         "Update Employee Role",
         "Update Employee Manager"],
-    }
-    .then(({ userChoice }) => {
-      switch (userChoice) {
+    }])
+    .then(function(userChoice) {
+      switch (userChoice.action) {
         case "View All Employees":
           viewAllEmployees();
           break;
 
-        case "View All Employees By Department":
+        case "View All Departments":
           viewAllDepartments();
           break;
+
+          case "Add Department":
+            addDepartment();
+            break;
 
         case "View All Employees By Manager":
           viewByManager();
@@ -64,60 +54,92 @@ function init() {
         case "Update Employee Manager":
           updateEmployeeManager();
           break;
-          
+
         default:
-          exit();
+          process.exit();
       }
-    });
-}
-    }
-    console.table(action);
+    })
+  }
 
-  });
-};
+  function viewAllDepartments() {
+    DB.findAllDepartments().then(function (res){
+      printTable(res);
+      console.log(res);
+    })
+  }
 
-function viewAllEmployees() {
+  function viewAllEmployees() {
+    DB.findAllEmployees().then(function (res){
+      printTable(res);
+      console.log("Hi");
+    })
+  }
 
-}
-connection.query(
+  async function addRole(){
+    const departments = await DB.findAllDepartments();
 
-  //             `INSERT INTO items (name, bid)
-  //             VALUES (?, ?);`,
-  //             [name, bid],
-  //             (err, data) => {
-  //                 if (err) throw err;
-  //                 console.log(data);
-  //                 init();
-  //             }
-  //         );
-  //     });
-  // }
+    const departmentChoices = departments.map(({ id, name }) => ({
+      name: name,
+      value: id
+    }));
+    inquirer.prompt([
+      {
+        type: "input",
+        message: "What is the name of the role?",
+        name: "role"
+      },
+      {
+        type: "input",
+        message: "What is the salary for the role?",
+        name: "salary"
+      }
+    ])
+  }
+
+  function addDepartment() {
+    inquirer.prompt([
+      {
+        type: "input",
+        message: "What is the department name?",
+        name: "Depname"
+      }
+    ]).then(function(answers){
+      DB.addDepartment(answers.Depname).then(function(response){
+        viewAllDepartments();
+        printTable(res);
+      })
+    })
+  }
+
+  function addEmployee() {
+    inquirer.prompt([
+      {
+        type: "input",
+        message: "What is the employee's name?",
+        name: "Empname"
+      }
+    ]).then(function(answers){
+      DB.addEmployee(answers.Empname).then(function(response){
+        viewAllEmployees();
+      })
+    })
+  }
+
+  function addRole() {
+    inquirer.prompt([
+      {
+        type: "input",
+        message: "What role would you like to add?",
+        name: "role",
+        choices: ["Manager", "Supervisor", "Associate"]
+      }
+    ]).then(function(answers){
+      DB.addRole(answers.role).then(function(response){
+
+      })
+    })
+  }
 
   
 
-//       connection.query(
-//           `INSERT INTO items (name, bid)
-//           VALUES ("Football", 10);`,
-//           (err, data) => {
-//               if (err) throw err;
-//               console.log(data);
-//           }
-//       );
-//   }
-
-  function init() {
-    inquirer
-      .prompt([
-        {
-          type: "list",
-          message: "What would you like to do?",
-          name: "action",
-          choices: [
-        },
-      ]).then(({ action }) => {
-//           if (action === "Post an item") {
-//               readOptionlist();
-//           } else if (action === "Bid on an item") {
-//               readOptionlist();
-//           }
-//       });
+init();
