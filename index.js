@@ -20,7 +20,7 @@ function main() {
         "Add Employee",
         "Remove Employee",
         "Add Employee Role",
-        "Update Employee Manager"],
+        "Update Employee Roles"],
     }])
     .then(function(userChoice) {
       switch (userChoice.action) {
@@ -56,8 +56,8 @@ function main() {
           addEmployeeRole();
           break;
           
-        case "Update Employee Manager":
-          updateEmployeeManager();
+        case "Update Employee Roles":
+          updateEmployeeRoles();
           break;
 
         default:
@@ -81,6 +81,13 @@ function main() {
   }
 
   function viewAllRoles(){
+    DB.findAllRoles().then(function (res){
+      printTable(res);
+      console.log(res);
+    });
+  }
+
+  function updateEmployeeRoles(){
     DB.findAllRoles().then(function (res){
       printTable(res);
       console.log(res);
@@ -161,9 +168,11 @@ function main() {
       }
     ]).then(function(answers){
       DB.addEmployeeRole(answers.role, answers.salary).then(function(response){
-        findAllRoles();
+       
       })
     })
   }
+
+  
 
 main();

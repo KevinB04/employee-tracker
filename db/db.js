@@ -39,6 +39,10 @@ class DB {
     showEmployeesByDepartment(){
         return this.connection.query("SELECT employee.first_name, employee.last_name, employee.role_id FROM employee")
     }
+
+    updateEmployeeRoles(){
+        return this.connection.query("SELECT * FROM role")
+    }
 }
 
 module.exports = new DB(connection);
