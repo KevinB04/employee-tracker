@@ -58,21 +58,21 @@ function init() {
         default:
           process.exit();
       }
-    })
+    });
   }
 
   function viewAllDepartments() {
     DB.findAllDepartments().then(function (res){
       printTable(res);
       console.log(res);
-    })
+    });
   }
 
   function viewAllEmployees() {
     DB.findAllEmployees().then(function (res){
       printTable(res);
-      console.log("Hi");
-    })
+      mainMenu();
+    });
   }
 
   async function addRole(){
@@ -93,7 +93,7 @@ function init() {
         message: "What is the salary for the role?",
         name: "salary"
       }
-    ])
+    ]);
   }
 
   function addDepartment() {
@@ -108,21 +108,31 @@ function init() {
         viewAllDepartments();
         printTable(res);
       })
-    })
+    });
   }
 
   function addEmployee() {
     inquirer.prompt([
       {
         type: "input",
-        message: "What is the employee's name?",
-        name: "Empname"
+        message: "What is the employee's first name?",
+        name: "firstName"
+      },
+      {
+        type: "input",
+        message: "What is the employee's last name?",
+        name: "lastName"
+      },
+      {
+        type: "input",
+        message: "What is the employee's id?",
+        name: "roleID",
       }
     ]).then(function(answers){
-      DB.addEmployee(answers.Empname).then(function(response){
+      DB.addEmployee(answers.firstName, answers.lastName, answers.roleID).then(function(response){
         viewAllEmployees();
       })
-    })
+    });
   }
 
   function addRole() {
