@@ -16,6 +16,10 @@
   ## Installation
   You are welcome to clone this repository. Run `git clone git@github.com:KevinB04/note-taker.git`
 
+  ## Usage
+
+  ![employee-tracker](./assets/images/employee-tracker.jpg)
+
   ## Credits
   * [Shields.io](https://shields.io/)
   * [Node.js](https://nodejs.org/en/)
