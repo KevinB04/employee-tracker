@@ -4,7 +4,7 @@ const { printTable } = require("console-table-printer")
 const DB = require("./db/db");
 const { findAllDepartments } = require("./db/db");
 
-function init() {
+function main() {
   inquirer.prompt([
     {
       type: "list",
@@ -16,6 +16,7 @@ function init() {
         "View All Employees By Manager",
         "View All Departments",
         "Add Department",
+        "View All Roles",
         "Add Employee",
         "Remove Employee",
         "Add Employee Role",
@@ -33,6 +34,10 @@ function init() {
 
           case "Add Department":
             addDepartment();
+            break;
+
+        case "View All Roles":
+            viewAllRoles();
             break;
 
         case "View All Employees By Manager":
@@ -71,7 +76,14 @@ function init() {
   function viewAllEmployees() {
     DB.findAllEmployees().then(function (res){
       printTable(res);
-      mainMenu();
+      main();
+    });
+  }
+
+  function viewAllRoles(){
+    DB.findAllRoles().then(function (res){
+      printTable(res);
+      console.log(res);
     });
   }
 
@@ -144,11 +156,10 @@ function init() {
         choices: ["Manager", "Supervisor", "Associate"]
       }
     ]).then(function(answers){
-      DB.addRole(answers.role).then(function(response){
-
+      DB.addEmployeeRole(answers.role).then(function(response){
+        findAllRoles();
       })
     })
   }
 
-
-init();
+main();
