@@ -24,6 +24,8 @@
   * [Shields.io](https://shields.io/)
   * [Node.js](https://nodejs.org/en/)
   * [MySQL](https://www.mysql.com/)
+  * [Inquirer.js](https://www.npmjs.com/package/inquirer/v/0.2.3)
+  * [Console.table](https://www.npmjs.com/package/console.table)
 
   ## Contributions
   Not accepting contributions at this time.
