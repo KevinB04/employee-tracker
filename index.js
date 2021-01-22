@@ -153,10 +153,14 @@ function main() {
         type: "input",
         message: "What role would you like to add?",
         name: "role",
-        choices: ["Manager", "Supervisor", "Associate"]
+      },
+      {
+        type: "input",
+        message: "What is the salary for this role?",
+        name: "salary"
       }
     ]).then(function(answers){
-      DB.addEmployeeRole(answers.role).then(function(response){
+      DB.addEmployeeRole(answers.role, answers.salary).then(function(response){
         findAllRoles();
       })
     })
